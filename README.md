@@ -15,18 +15,20 @@ LLM calls are routed through OpenRouter free tier (no paid usage required).
 - Optional: Radare2, YARA, LIEF, Capstone, Androguard
 
 ## Quick Start
-1. Create a virtual environment and install dependencies:
-   - `python -m venv .venv`
+1. Create a Python 3.11 virtual environment:
+   - `py -3.11 -m venv .venv`
    - `./.venv/Scripts/activate` (Windows)
-   - `pip install -r requirements.txt`
-2. Set environment variables (OpenRouter free tier):
+2. Install dependencies:
+   - Low disk mode: `pip install -r requirements-min.txt`
+   - Full toolchain (optional): `pip install -r requirements.txt`
+3. Set environment variables (OpenRouter free tier):
    - Copy `.env.example` to `.env`
    - Set `OPENROUTER_API_KEY` and confirm `OPENROUTER_MODEL` is a free-tier model
-3. Run a basic analysis:
+4. Run a basic analysis:
    - `python -m agentic_binary_analysis.cli analyze --file samples/sample.bin --kind binary`
-4. Optional agent summary:
+5. Optional agent summary:
    - `python -m agentic_binary_analysis.cli analyze --file samples/sample.bin --kind binary --agent`
-5. Optional agent tool orchestration (requires Agno installed):
+6. Optional agent tool orchestration (requires Agno + OpenAI client):
    - `python -m agentic_binary_analysis.cli analyze --file samples/sample.bin --kind binary --agent --agent-orchestrate`
 
 ## Docker
@@ -36,6 +38,9 @@ LLM calls are routed through OpenRouter free tier (no paid usage required).
 ## Tests
 - `PYTHONPATH=src python -m pytest -q`
 - If pytest fails due to the `dash` plugin, use `-p no:dash`.
+
+## Notes
+- If the OpenRouter free tier rate limits a model, rerun without `--agent` or switch to another free-tier model.
 
 ## Notes
 - OpenRouter free tier is used by default. You can change the model via `OPENROUTER_MODEL`.

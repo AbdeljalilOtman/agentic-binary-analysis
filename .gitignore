@@ -5,3 +5,5 @@ __pycache__/
 .env
 .env.*
 .DS_Store
+agent_report.json
+agent_orchestrated_*.json

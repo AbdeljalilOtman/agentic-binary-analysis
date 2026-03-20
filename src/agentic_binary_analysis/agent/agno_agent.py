@@ -29,4 +29,18 @@ def run_agent(
         tools=tools,
         instructions="You are a malware analysis assistant. Use tools when helpful.",
     )
-    return agent.run(prompt), True
+    result = agent.run(prompt)
+    content = getattr(result, "content", None)
+    if isinstance(content, str) and content.strip():
+        output = content
+    else:
+        reasoning = getattr(result, "reasoning_content", None)
+        if isinstance(reasoning, str) and reasoning.strip():
+            output = reasoning
+        else:
+            output = str(result)
+
+    if len(output) > 2000:
+        output = output[:2000] + "... (truncated)"
+
+    return output, True

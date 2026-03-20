@@ -12,5 +12,5 @@ def generate_report(payload: Dict[str, Any], output_path: str | None = None) -> 
     }
     if output_path:
         with open(output_path, "w", encoding="utf-8") as handle:
-            json.dump(report, handle, indent=2)
+            json.dump(report, handle, indent=2, default=str)
     return report
